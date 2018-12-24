@@ -9,9 +9,10 @@ delimiter=' '
 #Linux command line 
 avaiMemG=$(df -h /home | tail -1 | awk '{print $4}')
 avaiMemM=$(df /home | tail -1 | awk '{print $4}')
+# edit your path to count number of image here
 infoPng=$(find /home/pi/scannn/ | grep .png | wc -l)
 infoJpg=$(find /home/pi/scannn/ | grep .jpg | wc -l)
-#infoDPI=$(crontab -l > fileTmp.txt; < fileTmp.txt grep java | awk '{print $(NF-2)}')
+
 infoDPI=$(crontab -u pi -l > cron.txt; < cron.txt grep java | awk '{print $(NF-2)}')
 crontab -u pi -l | grep java > cron.txt
 cut -d"$delimiter" -f1-5 cron.txt > cron2.txt

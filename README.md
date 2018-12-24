@@ -37,6 +37,7 @@ sudo python sim808.py
 ## File edit :
 * sim800.py
 	* Edit your phone number for GSM.
+	* ![alt text](https://github.com/huyhoang8398/sim800/blob/v1.0/pictures/Screenshot_2018-12-24_23-00-01.png)
 * info.sh
 	* Edit the path to your folder where you store pictures.
 ## Auto run at start up with crontab
