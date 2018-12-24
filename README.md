@@ -40,6 +40,10 @@ sudo python sim808.py
 	* ![alt text](https://github.com/huyhoang8398/sim800/blob/v1.0/pictures/Screenshot_2018-12-24_23-00-01.png)
 * info.sh
 	* Edit the path to your folder where you store pictures.
+	* ![alt text](https://raw.githubusercontent.com/huyhoang8398/sim800/v1.0/pictures/Screenshot_2018-12-24_23-07-41.png)
+* changeTime.sh
+	* Edit the path to your java file (to control scanner) to install new cronjob for Rasp Pi
+	* ![alt text](https://raw.githubusercontent.com/huyhoang8398/sim800/v1.0/pictures/Screenshot_2018-12-24_23-10-11.png)
 ## Auto run at start up with crontab
 ```bash
 sudo apt-get install crontab
