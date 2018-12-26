@@ -56,3 +56,4 @@ crontab -e
 ```
 @reboot bash /home/pi/sim800/launcher.sh
 ```
+* Updating...
