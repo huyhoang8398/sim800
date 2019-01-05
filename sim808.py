@@ -130,13 +130,13 @@ try:
     voltage = ''
     while (1):
         dataserial= dataserial + ser.readline()
-	for i in range(0,1):
-		ser2.write('D')
-		voltage = ser2.readline()
-		writeString('outputvoltage.txt', voltage)
-		print (voltage)
+#	for i in range(0,1):
+ #           ser2.write('D')
+  #  	    voltage = ser2.readline()
+   # 	    writeString('outputvoltage.txt', voltage)
+    #	    print (voltage)
 ############ Add more function here ##########
-        if(len(dataserial)>0):
+       if(len(dataserial)>0):
             ###### Help ######
             print(dataserial)
 
@@ -146,6 +146,9 @@ try:
             	dataserial = ''
             if(dataserial.find("daily")>0):
                 dailyInfo()
+                ser2.write('D')
+                voltage = ser2.readline()
+                writeString('outputvoltage.txt', voltage)
                 myfile=open('/home/pi/sim800/dailyLog.txt','r')  #### path to your daily log file 
                 dataDaily=myfile.read()
                 GSM_MakeSMS(dataDaily)

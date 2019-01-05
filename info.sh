@@ -12,7 +12,7 @@ avaiMemM=$(df /home | tail -1 | awk '{print $4}')
 # edit your path to count number of image here
 infoPng=$(find /home/pi/scannn/ | grep .png | wc -l)
 infoJpg=$(find /home/pi/scannn/ | grep .jpg | wc -l)
-
+infoVolt=$(cat -A outputvoltage.txt)
 infoDPI=$(crontab -u pi -l > cron.txt; < cron.txt grep java | awk '{print $(NF-2)}')
 crontab -u pi -l | grep java > cron.txt
 cut -d"$delimiter" -f1-5 cron.txt > cron2.txt
@@ -47,11 +47,16 @@ function GetTime()
 {
 	echo -e "${str6}" "${infoTime}"
 }
+function getVolt()
+{
+  echo -e "${infoVolt}"
+}
 # Echo output to textfile without overwrite date time 
 echo $(GET_JPG) >> /home/pi/sim800/dailyLog.txt
 echo $(GET_PNG) >> /home/pi/sim800/dailyLog.txt
 echo $(GET_MEM) >> /home/pi/sim800/dailyLog.txt
 echo $(GetDPI) >> /home/pi/sim800/dailyLog.txt
+echo $(getVolt) >> /home/pi/sim800/dailyLog.txt
 echo -e "$str6" "$infoTime""\n" >> /home/pi/sim800/dailyLog.txt
 
 
