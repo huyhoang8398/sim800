@@ -5,6 +5,7 @@ str3="Free storage:" # your storage available
 str4="DPI:" ## your DPI 
 str6="Time to take Picture:"
 str5="Number of Picture can take:"
+str7="Voltage:"
 delimiter=' '
 #Linux command line 
 avaiMemG=$(df -h /home | tail -1 | awk '{print $4}')
@@ -45,11 +46,11 @@ function GetDPI()
 }
 function GetTime()
 {
-	echo -e "${str6}" "${infoTime}"
+	echo -e "${str6}" "${infoTime}\n"
 }
 function getVolt()
 {
-  echo -e "${infoVolt}"
+  echo -e "${str7}" "${infoVolt}"
 }
 # Echo output to textfile without overwrite date time 
 echo $(GET_JPG) >> /home/pi/sim800/dailyLog.txt

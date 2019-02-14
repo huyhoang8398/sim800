@@ -19,8 +19,8 @@ import datetime
 import subprocess 
 from stringexec import parseString, writeString
 #Setup gpio pin thuc hien mot so chuc nang dac biet
-C_PWpin = 27        # chan C_PW dieu khien nguon cap cho RPI Sim808 Shield
-PWKpin  = 17        # chan PWK : bat/tat RPI Sim808 Shield
+#C_PWpin = 27        # chan C_PW dieu khien nguon cap cho RPI Sim808 Shield
+PWKpin  = 4        # chan PWK : bat/tat RPI Sim808 Shield
 
 #data = ''
 #with open('home/pi/log1.txt', 'r') as myfile
@@ -36,12 +36,12 @@ ser = serial.Serial(
     timeout = 1
 )
 ser2 = serial.Serial(
-    port = '/dev/ttyACM0',
-    baudrate = 9600
+   port = '/dev/ttyACM0',
+   baudrate = 9600
 )
 # setup GPIO
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(C_PWpin, GPIO.OUT)
+#GPIO.setup(C_PWpin, GPIO.OUT)
 GPIO.setup(PWKpin, GPIO.OUT)
 
 # Path to script folder
@@ -95,7 +95,7 @@ def GSM_MakeCall():
 #********************************************************************
 def GSM_MakeSMS(data):
     print ("Nhan tin...\n")
-    ser.write(b'AT+CMGS=\"0333765933\"\r\n')    # change your phone number here
+    ser.write(b'AT+CMGS=\"0989612156\"\r\n')    # change your phone number here
     time.sleep(5)
     ser.write(data)
     ser.write(b'\x1A')      # Gui Ctrl Z hay 26, 0x1A de ket thuc noi dung tin nhan va gui di
@@ -130,13 +130,8 @@ try:
     voltage = ''
     while (1):
         dataserial= dataserial + ser.readline()
-#	for i in range(0,1):
- #           ser2.write('D')
-  #  	    voltage = ser2.readline()
-   # 	    writeString('outputvoltage.txt', voltage)
-    #	    print (voltage)
 ############ Add more function here ##########
-       if(len(dataserial)>0):
+       	if(len(dataserial)>0):
             ###### Help ######
             print(dataserial)
 
@@ -153,7 +148,7 @@ try:
                 dataDaily=myfile.read()
                 GSM_MakeSMS(dataDaily)
                 dataserial=''
-
+		        voltage=''
             if(dataserial.find("help")>0):
                 print (dataserial)
                 datalog = ''
