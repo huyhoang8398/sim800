@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python
 # -*- coding:utf-8 -*-
 
 
@@ -36,8 +36,8 @@ ser = serial.Serial(
     timeout = 1
 )
 ser2 = serial.Serial(
-   port = '/dev/ttyACM0',
-   baudrate = 9600
+    port = '/dev/ttyACM0',
+    baudrate = 9600
 )
 # setup GPIO
 GPIO.setmode(GPIO.BCM)
@@ -95,7 +95,7 @@ def GSM_MakeCall():
 #********************************************************************
 def GSM_MakeSMS(data):
     print ("Nhan tin...\n")
-    ser.write(b'AT+CMGS=\"0989612156\"\r\n')    # change your phone number here
+    ser.write(b'AT+CMGS=\"0918328099\"\r\n')    # change your phone number here
     time.sleep(5)
     ser.write(data)
     ser.write(b'\x1A')      # Gui Ctrl Z hay 26, 0x1A de ket thuc noi dung tin nhan va gui di
@@ -103,19 +103,19 @@ def GSM_MakeSMS(data):
     return
 #change DPI##################
 def changeDPI():
-    subprocess.call(['./changeDPI.sh'])
+    subprocess.call(["sudo", "bash", "/home/pi/sim800/changeDPI.sh"])
 def changeTime():
-    subprocess.call(['./changeTime.sh'])
+    subprocess.call(["sudo", "bash", "/home/pi/sim800/changeTime.sh"])
 ########### kill inotiwait background job ########
 def killIno():
-    subprocess.call(['./killjob.sh'])
+    subprocess.call(["sudo", "bash", "/home/pi/sim800/killjob.sh"])
 
 ######## run inotiwait again ####
 def Inowait():
-    subprocess.call(['./inowait.sh'])
+    subprocess.call(["sudo", "bash", "/home/pi/sim800/inowait.sh"])
 ####### daily information ####
 def dailyInfo():
-    subprocess.call(['./info.sh'])
+    subprocess.call(["sudo", "bash", "/home/pi/sim800/info.sh"])
 
 # Simple example :
 try:
@@ -130,11 +130,15 @@ try:
     voltage = ''
     while (1):
         dataserial= dataserial + ser.readline()
+#	for i in range(0,1):
+ #           ser2.write('D')
+  #  	    voltage = ser2.readline()
+   # 	    writeString('outputvoltage.txt', voltage)
+    #	    print (voltage)
 ############ Add more function here ##########
-       	if(len(dataserial)>0):
+        if(len(dataserial)>0):
             ###### Help ######
             print(dataserial)
-
             if (dataserial.find("NORMAL POWER DOW") > 0):
             	GSM_Power()
             	GSM_Init()
@@ -148,7 +152,7 @@ try:
                 dataDaily=myfile.read()
                 GSM_MakeSMS(dataDaily)
                 dataserial=''
-		        voltage=''
+
             if(dataserial.find("help")>0):
                 print (dataserial)
                 datalog = ''
@@ -171,7 +175,7 @@ try:
                 Inowait()
             ########## change DPI of your scanner
             if(dataserial.find("dpi")>0):
-                writeString('outputDPI.txt', parseString(dataserial, 'dpi '))
+                writeString('/home/pi/sim800/outputDPI.txt', parseString(dataserial, 'dpi '))
                	dataserial=''
                	changeDPI()
                
@@ -192,7 +196,7 @@ try:
                 os.system("sudo shutdow now")
             #### change time of your cronjob 
             if(dataserial.find("time")>0):
-            	writeString('outputTime.txt', parseString(dataserial, 'time '))
+            	writeString('/home/pi/sim800/outputTime.txt', parseString(dataserial, 'time '))
               	dataserial=''
                	changeTime()
             #daily infomation########

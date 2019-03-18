@@ -1,7 +1,7 @@
 #!/bin/bash
-crontab -u pi -l > cron.txt
-sed -i -e 's/\r//g' outputDPI.txt
-DPI=$(cat -A outputDPI.txt)
-infoDPI=$(grep java cron.txt| awk '{print $(NF-2)}')
-sed -i "s|$infoDPI|$DPI|" cron.txt
-crontab -u pi cron.txt
+crontab -u pi -l > /home/pi/sim800/cron.txt
+sed -i -e 's/\r//g' /home/pi/sim800/outputDPI.txt
+DPI=$(cat -A /home/pi/sim800/outputDPI.txt)
+infoDPI=$(grep java /home/pi/sim800/cron.txt| awk '{print $(NF-2)}')
+sed -i "s|$infoDPI|$DPI|" /home/pi/sim800/cron.txt
+crontab -u pi /home/pi/sim800/cron.txt

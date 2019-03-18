@@ -13,11 +13,11 @@ avaiMemM=$(df /home | tail -1 | awk '{print $4}')
 # edit your path to count number of image here
 infoPng=$(find /home/pi/scannn/ | grep .png | wc -l)
 infoJpg=$(find /home/pi/scannn/ | grep .jpg | wc -l)
-infoVolt=$(cat -A outputvoltage.txt)
-infoDPI=$(crontab -u pi -l > cron.txt; < cron.txt grep java | awk '{print $(NF-2)}')
-crontab -u pi -l | grep java > cron.txt
-cut -d"$delimiter" -f1-5 cron.txt > cron2.txt
-infoTime=$(cat -A cron2.txt)
+infoVolt=$(cat -A /home/pi/sim800/outputvoltage.txt)
+infoDPI=$(crontab -u pi -l > /home/pi/sim800/cron.txt; < /home/pi/sim800/cron.txt grep java | awk '{print $(NF-2)}')
+crontab -u pi -l | grep java > /home/pi/sim800/cron.txt
+cut -d"$delimiter" -f1-5 /home/pi/sim800/cron.txt > /home/pi/sim800/cron2.txt
+infoTime=$(cat -A /home/pi/sim800/cron2.txt)
 ### image size
 ## 1GiB = 1024 MB = 1048576 KB
 # df -h will output as gigabyte if posible, but we need KB and MB 
@@ -46,11 +46,11 @@ function GetDPI()
 }
 function GetTime()
 {
-	echo -e "${str6}" "${infoTime}\n"
+	echo -e "${str6}" "${infoTime}"
 }
 function getVolt()
 {
-  echo -e "${str7}" "${infoVolt}"
+  echo -e "${str7} ""${infoVolt}"
 }
 # Echo output to textfile without overwrite date time 
 echo $(GET_JPG) >> /home/pi/sim800/dailyLog.txt
