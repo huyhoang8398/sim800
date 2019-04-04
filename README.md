@@ -50,10 +50,28 @@ sudo apt-get install crontab
 ```
 To config crontab use:
 ```bash
-crontab -e
+sudo crontab -e
 * Add this line to automatic run the program at startup
 ```
 ```
 @reboot bash /home/pi/sim800/launcher.sh
+```
+## Current list of available commands
+```
+dpi {dpi numer}
+- Example: dpi 200 - Change DPI for the scanner 
+```
+```
+time {crontime number}
+- Example: time */2 * * * * 
+- Change the time for scanner cronjob
+```
+```
+daily
+- Request for the daily report
+``` 
+```
+help
+- List available commands
 ```
 * Updating...
