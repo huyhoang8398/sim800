@@ -50,7 +50,7 @@ function GetTime()
 }
 function getVolt()
 {
-  echo -e "${str7} ""${infoVolt}"
+    echo -e "${str7}" "${infoVolt}"
 }
 # Echo output to textfile without overwrite date time 
 echo $(GET_JPG) >> /home/pi/sim800/dailyLog.txt

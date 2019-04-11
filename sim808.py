@@ -147,7 +147,7 @@ try:
                 dailyInfo()
                 ser2.write('D')
                 voltage = ser2.readline()
-                writeString('outputvoltage.txt', voltage)
+                writeString('/home/pi/sim800/outputvoltage.txt', voltage)
                 myfile=open('/home/pi/sim800/dailyLog.txt','r')  #### path to your daily log file 
                 dataDaily=myfile.read()
                 GSM_MakeSMS(dataDaily)
