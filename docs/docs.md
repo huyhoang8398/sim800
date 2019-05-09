@@ -118,8 +118,99 @@ Notice the two pin number 1 (UART1_TXD) and the pin number 2 (UART1_RXD) to comm
 sudo apt-get install python-pip
 sudo apt-get install python-serial
 ```
+* We need change file system modes of files and directories. The modes include permissions and special modes. Each shell script must have the execute permission. Mode can be either a symbolic representation of changes to make, or an octal number representing the bit pattern for the new mode bits.
+```bash
+chmod +x info.sh
+chmod +x changeTime.sh
+chmod +x changeDPI.sh
+```
 
-* Edit phone number 
+* Edit phone number for sending a message ( same with call function )
+
 ```python
+def GSM_MakeSMS(data):
+    print ("Nhan tin...\n")
+    ser.write(b'AT+CMGS=\"0123456789\"\r\n')    # change your phone number here
+    time.sleep(5)
+    ser.write(data)
+    ser.write(b'\x1A')
+    time.sleep(5)
+    return
+```
+```python
+def GSM_MakeCall():
+    print ("Goi dien...\n")
+    ser.write(b'ATD0989612156;\r\n')  # Goi dien toi sdt 012345678
+    time.sleep(20)
+    ser.write(b'ATH\r\n')
+    time.sleep(2)
+    return
+```
 
+**Main Function Diagram**
+  \begin{figure}
+  \centering
+  {\includegraphics[width=5.5in]{main.png}}
+  \caption{Program Overview}
+  \end{figure}
+
+**Arduino**
+The Raspberry Pi cannot read and convert the analog signal so We use an Arduino to read directly the voltage output from the power source.
+
+**Auto run at start up with crontab**
+Cron is a Unix, solaris, Linux utility that allows tasks to be automatically run in the background at regular intervals by the cron daemon.
+Cron is a daemon which runs at the times of system boot from /etc/init.d scripts. If needed it can be stopped/started/restart using init script or with command service crond start in Linux systems. Cron job or cron schedule is a specific set of execution instructions specifing day, time and command to execute. crontab can have multiple execution statments.
+
+##### Crontab Restrictions
+
+You can execute crontab if your name appears in the file /usr/lib/cron/cron.allow. If that file does not exist, you can use
+crontab if your name does not appear in the file /usr/lib/cron/cron.deny.
+If only cron.deny exists and is empty, all users can use crontab. If neither file exists, only the root user can use crontab. The allow/deny files consist of one user name per line.
+\
+**Crontab Commands**
+
+* crontab -e:  Edit crontab file, or create one if it doesn’t already exist.
+* crontab -l: crontab list of cronjobs , display crontab file contents.
+* crontab -r: Remove your crontab file.
+* crontab -v: Display the last time you edited your crontab file. (This option is only available on a few systems.)
+
+```bash
+sudo apt-get install crontab
+```
+To config crontab use:
+```bash
+sudo crontab -e
+```
+* Add this line to automatic run the program at startup
+```
+@reboot bash /home/pi/sim800/launcher.sh
+```
+**Current list of available commands**
+```
+dpi {dpi numer}
+- Example: dpi 200 - Change DPI for the scanner 
+```
+```
+time {crontime number}
+- Example: time */2 * * * * 
+- Change the time for scanner cronjob
+```
+```
+daily
+- Request for the daily report
+``` 
+```
+help
+- List available commands
+```
+
+**System Report Example**
+```
+Tue 19 Mar 00:47:09 +07 2019
+Images JPG: 68
+Images PNG: 14
+Free storage: 3.7G Mb 3836652
+DPI: 100
+Voltage: 8.25^M$
+Time to take Picture: */5 * * * *$
 ```
